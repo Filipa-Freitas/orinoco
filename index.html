@@ -1,0 +1,83 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Orinoco</title>
+</head>
+<body>
+    <header>
+        <img src="/images/15675819263013_image1.png" alt="logo Orinoco">
+    </header>
+    <div id="container" class="row">
+    </div>
+    <footer>
+
+    </footer>
+    <script>
+        var container = document.getElementById('container');
+
+            fetch('/api/teddies')
+            .then(function(res) {
+                if (!res.ok) {
+                    throw Error(res.statusText);    
+                }
+                return res.json();
+            })
+            .then(function(json) {
+                for(var i = 0; i < json.length; i++) {
+                    var card = document.createElement('div');
+                    var img = document.createElement('img');
+                    var cardBody = document.createElement('div');
+                    var cardPrice = document.createElement('p');
+                    var cardName = document.createElement('a');
+
+                    card.className = "col-12 col-md-4 card my-2 p-2 shadow-sm";
+                    img.className = "card-img-top";
+                    cardBody.className = "card-body";
+                    cardPrice.className = "card-title";
+                    cardName.className = "stretched-link";
+
+                    img.src = json[i].imageUrl;
+                    img.alt = json[i].description;
+                    cardPrice.innerText = json[i].price;
+                    cardName.innerText = json[i].name;
+                    cardName.href = "/product/"+ json[i]._id
+
+                    cardBody.append(cardName);
+                    cardBody.append(cardPrice);
+                    card.append(img);
+                    card.append(cardBody);
+                    container.append(card);
+
+                    
+
+
+
+
+                    // div.appendChild(img);
+
+
+
+                    // var div = document.createElement('div');
+                    // var content = document.createTextNode('test de lien');
+                    // div.appendChild(content);
+                    // a.href = 'product/'+ json[i]._id;
+                    
+                    // container.append(a);
+                    // créer les elements htlm bootstrap
+
+                }
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    
+    </script>
+</body>
+</html>
+
+<div id="container">
+    <div></div>
+</div>
