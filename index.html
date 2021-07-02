@@ -8,13 +8,56 @@
 </head>
 <body>
     <header>
-        <img src="/images/15675819263013_image1.png" alt="logo Orinoco">
+        <div class="container">
+            <div class="row">
+                <nav class="col navbar navbar-expand-lg">
+                    <a href="#" class="navbar-brand" >
+                        <img src="/images/15675819263013_image1.png" width="150" height="80" alt="Site logo">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div id="navbarContent" class="collapse navbar-collapse">
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <a href="/" class="nav-link">Accueil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/order" class="nav-link">Shopping Cart</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
     </header>
-    <div id="container" class="row">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="jumbotron">
+                    <h1>Ours en peluche faits à la main</h1>
+                </div>
+            </div>
+        </div>
+    
+        <div id="container" class="row">
+        </div>
     </div>
-    <footer>
-
-    </footer>
+    <footer class="bg-light mt-4">
+        <div class="container">
+          <div class="row pt-4 pb-3">
+            <div class="col">
+              <ul class="list-inline text-center">
+                <li class="list-inline-item"><a href="#">À propos</a></li>
+                <li class="list-inline-item">&middot;</li>
+                <li class="list-inline-item"><a href="#">Vie privée</a></li>
+                <li class="list-inline-item">&middot;</li>
+                <li class="list-inline-item"><a href="#">Conditions d'utilisations</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
     <script>
         var container = document.getElementById('container');
 
@@ -41,7 +84,7 @@
 
                     img.src = json[i].imageUrl;
                     img.alt = json[i].description;
-                    cardPrice.innerText = json[i].price;
+                    cardPrice.innerText = json[i].price + " $";
                     cardName.innerText = json[i].name;
                     cardName.href = "/product/"+ json[i]._id
 
@@ -51,22 +94,6 @@
                     card.append(cardBody);
                     container.append(card);
 
-                    
-
-
-
-
-                    // div.appendChild(img);
-
-
-
-                    // var div = document.createElement('div');
-                    // var content = document.createTextNode('test de lien');
-                    // div.appendChild(content);
-                    // a.href = 'product/'+ json[i]._id;
-                    
-                    // container.append(a);
-                    // créer les elements htlm bootstrap
 
                 }
             })

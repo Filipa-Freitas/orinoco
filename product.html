@@ -1,16 +1,101 @@
 <!doctype html>
 <html lang="fr">
 	<head>
-		<meta charset="utf-8">
-		<meta name="keywords" content="seo, google, site web, site internet, agence design paris, agence design, agence design,agence design,agence design,agence design,agence design,agence design,agence design,agence design">
-		<meta name="description" content="Que vous ayez un site web qui a besoin d’un rafraîchissement ou que vous partiez de zéro, faites confiance à La Chouette Agence, la meilleure agence de web design à Lyon. Notre équipe vous accompagne dans vos objectifs et vous garantie un site web de qualité qui vous correspond. Nos experts en web design, stratégie commerciale et illustrations vous permettront d'améliorer votre visibilité sur internet de manière durable quelle que soit votre activité.">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-		<link rel="shortcut icon" type="image/webp" href="favicon.jpg">
-		
-		<title> | Orinoco</title>
-	</head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <title>Orinoco</title>
+    </head>
 	<body>
+        <header class="">
+            <div class="container">
+                <div class="row">
+                    <nav class="col navbar navbar-expand-lg">
+                        <a href="#" class="navbar-brand" >
+                            <img src="/images/15675819263013_image1.png" width="150" height="80" alt="Site logo">
+                        </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div id="navbarContent" class="collapse navbar-collapse">
+                            <ul class="navbar-nav">
+                                <li class="nav-item active">
+                                    <a href="/" class="nav-link">Accueil</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/order" class="nav-link">Shopping Cart</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div id="container">
 
-<script></script>
+        </div>
+<script>
+    // console.log("test", document.cookie);
+    var cookies = document.cookie.split("=");
+    var productId = cookies[1];
+    var container = document.getElementById('container');
+    // var product = [];
+
+    fetch('/api/teddies/'+ productId)
+    .then(function(res) {
+        if (!res.ok) {
+            throw Error(res.statusText);    
+        }
+        return res.json();
+    })
+    .then(function(json) {
+        var card = document.createElement('div');
+        var img = document.createElement('img');
+        var select = document.createElement('select');
+        var option1 = document.createElement('option');
+        var cardBody = document.createElement('div');
+        var cardName = document.createElement('p');
+        var cardPrice = document.createElement('p');
+        var cardDescription = document.createElement('p');
+        
+        
+
+        card.className = "col-12 card my-2 p-2 shadow-sm";
+        img.className = "card-img-top";
+        cardBody.className = "card-body";
+        cardPrice.className = "card-text";
+        cardDescription.className = "card-text";
+        cardName.className = "card-title";
+
+        img.src = json.imageUrl;
+        img.alt = json.description;
+        cardPrice.innerText = json.price+ " $";
+        cardName.innerText = json.name;
+        cardDescription.innerText = json.description;
+        option1.innerText = "--Choisissez une couleur--"
+
+        cardBody.append(select);
+        select.append(option1);
+        cardBody.append(cardName);
+        cardBody.append(cardPrice);
+        cardBody.append(cardDescription);
+        card.append(img);
+        card.append(cardBody);
+        container.append(card);
+        
+        for(var i = 0; i < json.colors.length; i++) {
+            var option = document.createElement('option');
+            option.innerText = json.colors[i];
+            option.value = json.colors[i];
+            select.append(option);
+        }
+
+    })
+    .catch(function(error) {
+        console.log(error);
+    });
+
+</script>
     </body>
 </html>

@@ -31,9 +31,14 @@ app.get('/', function(req,res) {
   res.sendFile(path.join(__dirname+'/index.html'));
 });
 app.get('/product/:id', function(req,res) {
-  console.log(req.params.id);
+  // console.log(req.params.id);
+  res.cookie('productId', req.params.id);
   // call one teddy with id
   res.sendFile(path.join(__dirname+'/product.html'));
+});
+app.get('/order', function(req,res) {
+  
+  res.sendFile(path.join(__dirname+'/shoppingcart.html'));
 });
 
 module.exports = app;
