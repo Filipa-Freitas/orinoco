@@ -32,7 +32,7 @@ app.get('/', function(req,res) {
 });
 app.get('/product/:id', function(req,res) {
   // console.log(req.params.id);
-  res.cookie('productId', req.params.id);
+  // res.cookie('productId', req.params.id);
   // call one teddy with id
   res.sendFile(path.join(__dirname+'/product.html'));
 });
