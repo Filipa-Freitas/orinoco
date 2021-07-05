@@ -123,8 +123,26 @@
 
     btn.addEventListener('click', async function() {
         const product = await getData();
-        localStorage.setItem('article', JSON.stringify(product));
-        // console.log(product);
+        var products = JSON.parse(localStorage.getItem("products"));
+
+        if (products) {
+            var found = products.find(function(element, index) {
+                if (element._id == product._id) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+            
+            if (!found) {
+                products.push(product);
+                localStorage.setItem("products", JSON.stringify(products));
+            }
+        } else {
+            products = [];
+            products.push(product);
+            localStorage.setItem("products", JSON.stringify(products));
+        }
     });
     
     /*
