@@ -17,6 +17,9 @@ app.use((req, res, next) => {
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(express.static('images'));
 
+app.use('/css', express.static(path.join(__dirname, 'css')));
+app.use(express.static('css'));
+
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
