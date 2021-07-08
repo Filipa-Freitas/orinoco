@@ -14,11 +14,10 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/images', express.static(path.join(__dirname, 'images')));
-app.use(express.static('images'));
+app.use(express.static(__dirname + '/public'));
+app.use('/css', express.static(__dirname + '/public'));
+app.use('/images', express.static(__dirname + '/public'));
 
-app.use('/css', express.static(path.join(__dirname, 'css')));
-app.use(express.static('css'));
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -31,17 +30,17 @@ app.use('/api/furniture', furnitureRoutes);
 // FRONT
 app.get('/', function(req,res) {
   //call all teddies
-  res.sendFile(path.join(__dirname+'/index.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 app.get('/product/:id', function(req,res) {
   // console.log(req.params.id);
   res.cookie('productId', req.params.id);
   // call one teddy with id
-  res.sendFile(path.join(__dirname+'/product.html'));
+  res.sendFile(path.join(__dirname, 'product.html'));
 });
 app.get('/order', function(req,res) {
   
-  res.sendFile(path.join(__dirname+'/shoppingcart.html'));
+  res.sendFile(path.join(__dirname, 'shoppingcart.html'));
 });
 
 module.exports = app;
