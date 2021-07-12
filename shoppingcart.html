@@ -82,13 +82,13 @@
 		</footer>
 		<script>
 
-			var products = JSON.parse(localStorage.getItem("products"));
+			var cart = JSON.parse(localStorage.getItem("cart"));
 			var containerEmpty = document.getElementById('empty');
 			var cartTable = document.querySelector('tbody');
 			var displayNone = document.getElementById('display-none');
 
 			// si localstorage vide, afficher panier vide
-			if (products == null) {
+			if (cart == null) {
 				displayNone.className = "d-none";
 				var empty = document.createElement('p');
 				empty.innerText = "Votre panier est vide";
@@ -96,7 +96,7 @@
 
 			// sinon, ajouter les teddies dans table
 			} else {
-				for (var i = 0; i < products.length; i++) {
+				for (var i = 0; i < cart.length; i++) {
 
 					var tr = document.createElement('tr');
 					var tdName = document.createElement('td');
@@ -104,10 +104,10 @@
 					var tdQuantity = document.createElement('td');
 					var tdPrice = document.createElement('td');
 
-					tdName.innerText = products[i].name;
-					tdColor.innerText = products[i].colors[0];
-					tdPrice.innerText = products[i].price+ " €";
-					tdQuantity.innerText = products[i].quantity;
+					tdName.innerText = cart[i].name;
+					tdColor.innerText = cart[i].color[0];
+					tdPrice.innerText = cart[i].price*cart[i].quantity+ " €";
+					tdQuantity.innerText = cart[i].quantity;
 
 					tr.append(tdName);
 					tr.append(tdColor);
@@ -118,8 +118,8 @@
 			}
 			// Ajouter le prix de chaque teddy dans un tableau
 			var allPrices = [];
-			for (var i = 0; i < products.length; i++) {
-				var priceCart = products[i].price;
+			for (var i = 0; i < cart.length; i++) {
+				var priceCart = cart[i].price*cart[i].quantity;
 				allPrices.push(priceCart);
 				console.log(allPrices);
 			}

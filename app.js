@@ -33,8 +33,6 @@ app.get('/', function(req,res) {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 app.get('/product/:id', function(req,res) {
-  // console.log(req.params.id);
-  res.cookie('productId', req.params.id);
   // call one teddy with id
   res.sendFile(path.join(__dirname, 'product.html'));
 });

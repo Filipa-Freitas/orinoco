@@ -37,7 +37,7 @@
         </header>
         
         <div class="container">
-            <div id="container" class="row">
+            <div id="teddy-card" class="row">
             </div>
             <button id="order-btn" class="btn btn-primary">Ajouter au panier</button>
         </div>
@@ -55,14 +55,13 @@
             </div>
         </footer>
         <script>
-            // console.log("test", document.cookie);
-            var cookies = document.cookie.split("=");
-            var productId = cookies[1];
-            var container = document.getElementById('container');
-            // var product = [];
+            var teddyCard = document.getElementById('teddy-card');
 
-            async function getData() {
-                const response = await fetch('/api/teddies/'+ productId);
+            var teddyId = window.location.href.split('/')[4].split('#')[0];
+            // console.log(teddyId);
+
+            async function getProductData() {
+                const response = await fetch('/api/teddies/'+ teddyId);
                 if(!response.ok) {
                     throw new Error(`Erreur HTTP ! statut : ${response.status}`);
                 }
@@ -70,7 +69,7 @@
             }
 
             async function displayContent() {
-                const product = await getData();
+                const product = await getProductData();
                 
                 var card = document.createElement('div');
                 var img = document.createElement('img');
@@ -102,7 +101,7 @@
                 cardBody.append(cardDescription);
                 card.append(img);
                 card.append(cardBody);
-                container.append(card);
+                teddyCard.append(card);
                 
                 for(var i = 0; i < product.colors.length; i++) {
                     var option = document.createElement('option');
@@ -116,16 +115,22 @@
             var btn = document.querySelector('#order-btn');
 
             btn.addEventListener('click', async function() {
-                const product = await getData();
-                product.quantity = 1;
-                var products = JSON.parse(localStorage.getItem("products"));
+                const product = await getProductData();
                 
+                var cart = JSON.parse(localStorage.getItem("cart"));
+                var teddySelected = {};
+                teddySelected.id = product._id;
+                teddySelected.quantity = 1;
+                teddySelected.name = product.name;
+                teddySelected.price = product.price;
+                teddySelected.color = product.colors; 
                 
 
-                if (products) {
-                    var found = products.find(function(element, index) {
-                        if (element._id == product._id) {
-                            
+                if (cart) {
+                    var found = cart.find(function(element, index) {
+                        if (element.id == product._id) {
+                            element.quantity += 1; 
+                            localStorage.setItem("cart", JSON.stringify(cart));
                             console.log(element.quantity); 
                             return true;
                         } else {
@@ -134,16 +139,16 @@
                     });
 
                     if (!found) {
-                        products.push(product);
-                        localStorage.setItem("products", JSON.stringify(products));
+                        cart.push(teddySelected);
+                        localStorage.setItem("cart", JSON.stringify(cart));
                         console.log('coucou');
                     }
                    
                 } 
                 else {
-                    products = [];
-                    products.push(product);
-                    localStorage.setItem("products", JSON.stringify(products));
+                    cart = [];
+                    cart.push(teddySelected);
+                    localStorage.setItem("cart", JSON.stringify(cart));
                     
                 }
             });

@@ -40,13 +40,13 @@
                 <div class="col mt-4 mb-4">
                     <div class="jumbotron text-center mt-4 mb-4 p-5 bg-light">
                         <h1>Ours en peluche faits à la main</h1>
-                        <p>Nos produits son fabriqués en France et garantis à vie</p>
+                        <p>Nos produits sont fabriqués en France et garantis à vie</p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="container mb-4 ">
-            <div id="container" class="row m-auto">
+            <div id="teddies-container" class="row m-auto">
             </div>
         </div>
         <footer class="bg-light mt-4">
@@ -64,7 +64,7 @@
         </footer>
 
         <script>
-            var container = document.getElementById('container');
+            var teddiesContainer = document.getElementById('teddies-container');
 
                 fetch('/api/teddies')
                 .then(function(res) {
@@ -97,7 +97,7 @@
                         cardBody.append(cardPrice);
                         card.append(img);
                         card.append(cardBody);
-                        container.append(card);
+                        teddiesContainer.append(card);
 
 
                     }
