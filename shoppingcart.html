@@ -46,12 +46,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<!-- <tr>
-						<td>Mark</td>
-						<td>Otto</td>
-						<td>@mdo</td>
-						<td>2</td>
-					</tr> -->
+
 				</tbody>
 				<tfoot>
 					<tr>
@@ -102,6 +97,8 @@
 					var tdName = document.createElement('td');
 					var tdColor = document.createElement('td');
 					var tdQuantity = document.createElement('td');
+					var btnMinus = document.createElement('button');
+					var btnAdd = document.createElement('button');
 					var tdPrice = document.createElement('td');
 
 					tdName.innerText = cart[i].name;
@@ -112,22 +109,25 @@
 					tr.append(tdName);
 					tr.append(tdColor);
 					tr.append(tdQuantity);
+					tdQuantity.append(btnMinus);
+					tdQuantity.append(btnAdd);
 					tr.append(tdPrice);
 					cartTable.append(tr);
 				}
+				// Ajouter le prix de chaque teddy dans un tableau
+				var allPrices = [];
+				for (var i = 0; i < cart.length; i++) {
+					var priceCart = cart[i].price*cart[i].quantity;
+					allPrices.push(priceCart);
+					console.log(allPrices);
+				}
+				// aditionner les prix des teddies et l'afficher dans table
+				const reducer = (accumulator, currentValue) => accumulator + currentValue;
+				const totalPrice = allPrices.reduce(reducer, 0);
+				var total = document.getElementById('total-price');
+				total.innerText = totalPrice+ " €";
+				
 			}
-			// Ajouter le prix de chaque teddy dans un tableau
-			var allPrices = [];
-			for (var i = 0; i < cart.length; i++) {
-				var priceCart = cart[i].price*cart[i].quantity;
-				allPrices.push(priceCart);
-				console.log(allPrices);
-			}
-			// aditionner les prix des teddies et l'afficher dans table
-			const reducer = (accumulator, currentValue) => accumulator + currentValue;
-			const totalPrice = allPrices.reduce(reducer, 0);
-			var total = document.getElementById('total-price');
-			total.innerText = totalPrice+ " €";
 
 		</script>
 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
