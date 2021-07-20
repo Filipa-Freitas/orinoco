@@ -77,29 +77,29 @@
 		</footer>
 		<script>
 
-			var cart = JSON.parse(localStorage.getItem("cart"));
-			var containerEmpty = document.getElementById('empty');
-			var cartTable = document.querySelector('tbody');
-			var displayNone = document.getElementById('display-none');
+			let cart = JSON.parse(localStorage.getItem("cart"));
+			let containerEmpty = document.getElementById('empty');
+			let cartTable = document.querySelector('tbody');
+			let displayNone = document.getElementById('display-none');
 
 			// si localstorage vide, afficher panier vide
 			if (cart == null) {
 				displayNone.className = "d-none";
-				var empty = document.createElement('p');
+				let empty = document.createElement('p');
 				empty.innerText = "Votre panier est vide";
 				containerEmpty.append(empty);
 
 			// sinon, ajouter les teddies dans table
 			} else {
-				for (var i = 0; i < cart.length; i++) {
+				for (let i = 0; i < cart.length; i++) {
 
-					var tr = document.createElement('tr');
-					var tdName = document.createElement('td');
-					var tdColor = document.createElement('td');
-					var tdQuantity = document.createElement('td');
-					var btnMinus = document.createElement('button');
-					var btnAdd = document.createElement('button');
-					var tdPrice = document.createElement('td');
+					let tr = document.createElement('tr');
+					let tdName = document.createElement('td');
+					let tdColor = document.createElement('td');
+					let tdQuantity = document.createElement('td');
+					let btnMinus = document.createElement('button');
+					let btnAdd = document.createElement('button');
+					let tdPrice = document.createElement('td');
 
 					tdName.innerText = cart[i].name;
 					tdColor.innerText = cart[i].color[0];
@@ -115,16 +115,16 @@
 					cartTable.append(tr);
 				}
 				// Ajouter le prix de chaque teddy dans un tableau
-				var allPrices = [];
-				for (var i = 0; i < cart.length; i++) {
-					var priceCart = cart[i].price*cart[i].quantity;
+				let allPrices = [];
+				for (let i = 0; i < cart.length; i++) {
+					let priceCart = cart[i].price*cart[i].quantity;
 					allPrices.push(priceCart);
 					console.log(allPrices);
 				}
 				// aditionner les prix des teddies et l'afficher dans table
 				const reducer = (accumulator, currentValue) => accumulator + currentValue;
 				const totalPrice = allPrices.reduce(reducer, 0);
-				var total = document.getElementById('total-price');
+				let total = document.getElementById('total-price');
 				total.innerText = totalPrice+ " €";
 				
 			}

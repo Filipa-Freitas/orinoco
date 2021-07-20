@@ -63,9 +63,9 @@
             // clearcart(productId)
             
 
-            var teddyCard = document.getElementById('teddy-card');
+            let teddyCard = document.getElementById('teddy-card');
 
-            var teddyId = window.location.href.split('/')[4].split('#')[0];
+            let teddyId = window.location.href.split('/')[4].split('#')[0];
             // console.log(teddyId);
 
             async function getProductData() {
@@ -79,14 +79,13 @@
             async function displayContent() {
                 const product = await getProductData();
                 
-                var card = document.createElement('div');
-                var img = document.createElement('img');
-                var select = document.createElement('select');
-                var option1 = document.createElement('option');
-                var cardBody = document.createElement('div');
-                var cardName = document.createElement('p');
-                var cardPrice = document.createElement('p');
-                var cardDescription = document.createElement('p');
+                let card = document.createElement('div');
+                let img = document.createElement('img');
+                let select = document.createElement('select');
+                let cardBody = document.createElement('div');
+                let cardName = document.createElement('p');
+                let cardPrice = document.createElement('p');
+                let cardDescription = document.createElement('p');
 
                 card.className = "col-8 card my-4 p-4 shadow-sm card-product m-auto";
                 img.className = "card-img-top";
@@ -100,10 +99,8 @@
                 cardPrice.innerText = product.price+ " €";
                 cardName.innerText = product.name;
                 cardDescription.innerText = product.description;
-                option1.innerText = "--Options--";
             
                 cardBody.append(select);
-                select.append(option1);
                 cardBody.append(cardName);
                 cardBody.append(cardPrice);
                 cardBody.append(cardDescription);
@@ -111,8 +108,8 @@
                 card.append(cardBody);
                 teddyCard.append(card);
                 
-                for(var i = 0; i < product.colors.length; i++) {
-                    var option = document.createElement('option');
+                for(let i = 0; i < product.colors.length; i++) {
+                    let option = document.createElement('option');
                     option.innerText = product.colors[i];
                     option.value = product.colors[i];
                     select.append(option);
@@ -120,13 +117,13 @@
             }
             displayContent();
 
-            var btn = document.querySelector('#order-btn');
+            let btn = document.querySelector('#order-btn');
 
             btn.addEventListener('click', async function() {
                 const product = await getProductData();
                 
-                var cart = JSON.parse(localStorage.getItem("cart"));
-                var teddySelected = {};
+                let cart = JSON.parse(localStorage.getItem("cart"));
+                let teddySelected = {};
                 teddySelected.id = product._id;
                 teddySelected.quantity = 1;
                 teddySelected.name = product.name;
@@ -135,7 +132,7 @@
                 
 
                 if (cart) {
-                    var found = cart.find(function(element, index) {
+                    let found = cart.find(function(element, index) {
                         if (element.id == product._id) {
                             element.quantity += 1; 
                             localStorage.setItem("cart", JSON.stringify(cart));
