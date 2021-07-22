@@ -5,7 +5,7 @@
 // si le produit est déjà dans le localStorage j'ajoute une quantité et j'enregistre l'objet dans le localStorage
 // // Fin Page Produit -----------------------------------------------
 
-let teddyId = window.location.href.split('/')[4].split('#')[0];
+
 // console.log(teddyId);
 
 let cart = {};
@@ -20,8 +20,8 @@ let cart = {};
 
 const utils = {
 
-    getProduct: async function() {
-        const response = await fetch('/api/teddies/'+ teddyId);
+    getProduct: async function(productId) {
+        const response = await fetch('/api/teddies/'+ productId);
                 if(!response.ok) {
                     console.log("hello");
                     throw new Error(`Erreur HTTP ! statut : ${response.status}`);
@@ -29,8 +29,8 @@ const utils = {
                 return await response.json();
     },
 
-    displayProduct: async function() {
-        const product = await this.getProduct();
+    displayProduct: function(product) {
+
         // console.log(product);
         document.getElementById('teddy-card').innerHTML = 
         `
@@ -45,7 +45,7 @@ const utils = {
             </div>
         </div>
         `;
-        
+        console.log(product);
         for(let i = 0; i < product.colors.length; i++) {            
             let option = document.createElement('option');
             option.innerText = product.colors[i];
@@ -92,8 +92,9 @@ const utils = {
 const page = {
 
     setPage: function() {
-        utils.getProduct();
-        utils.displayProduct();
+        let productId = window.location.href.split('/')[4].split('#')[0];
+        let product = utils.getProduct(productId);
+        utils.displayProduct(product);
 
     }
 };
