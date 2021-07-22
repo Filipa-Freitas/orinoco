@@ -6,17 +6,6 @@
 // // Fin Page Produit -----------------------------------------------
 
 
-// console.log(teddyId);
-
-let cart = {};
-
-// (() => {
-//     if(localStorage.products) {
-//         cart = JSON.parse(localStorage.products);
-//     } else {
-//         cart = {};
-//     }
-// })();
 
 const utils = {
 
@@ -45,7 +34,7 @@ const utils = {
             </div>
         </div>
         `;
-        console.log(product);
+        
         for(let i = 0; i < product.colors.length; i++) {            
             let option = document.createElement('option');
             option.innerText = product.colors[i];
@@ -54,46 +43,53 @@ const utils = {
         }
 
         document.getElementById("btn-add")
-        .addEventListener("click", () => this.addOneProductToCart());
+        .addEventListener("click", () => this.addOneProductToCart(product));
     },
 
     getCart: function() {
-        
+       let cart = localStorage.getItem("cart");
+       if (cart == null) {
+           return {};
+       }
+       return JSON.parse(cart);
     },
 
-    saveCart: function() {
-        localStorage.products = JSON.stringify(cart);
-        // localStorage.setItem("cart", JSON.stringify(cart));
+    saveCart: function(cart) {
+        localStorage.setItem("cart", JSON.stringify(cart));
     },
 
-    addOneProductToCart: async function() {
-        // this.getCart();
-        
-        const product = await this.getProduct();
+    addOneProductToCart: function(product) {
+        let cart = this.getCart();
+        if (cart[product._id] == null) {
 
-        let teddySelected = {};
-        teddySelected.id = product._id;
-        teddySelected.name = product.name;
-        teddySelected.color = product.colors[0]; 
-        teddySelected.quantity = 1;
-        teddySelected.price = product.price;
-        
-        cart[teddySelected.id] = teddySelected;
-        this.saveCart();
+            let teddySelected = {};
+            teddySelected.id = product._id;
+            teddySelected.name = product.name;
+            teddySelected.color = product.colors[0]; 
+            teddySelected.quantity = 1;
+            teddySelected.price = product.price;
+            cart[teddySelected.id] = teddySelected;
+
+        } else {
+            cart[product._id].quantity++;    
+        }
+            
+        this.saveCart(cart);
     
     },
 
-    removeOneProductOfCart: function() {
-        this.getCart();
+    removeOneProductOfCart: function(product) {
+        let cart = this.getCart();
+        delete cart[product.id];
         this.saveCart();
     },
 };
 
 const page = {
 
-    setPage: function() {
+    setPage: async function() {
         let productId = window.location.href.split('/')[4].split('#')[0];
-        let product = utils.getProduct(productId);
+        let product = await utils.getProduct(productId);
         utils.displayProduct(product);
 
     }
