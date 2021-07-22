@@ -6,21 +6,9 @@
 // // Fin Page Produit -----------------------------------------------
 
 let teddyId = window.location.href.split('/')[4].split('#')[0];
-console.log(teddyId);
+// console.log(teddyId);
 
 let cart = {};
-
-class SelectedProduct {
-    constructor(id, name, color, quantity, price) {
-        this.id = id;
-        this.name = name;
-        this.color = color;
-        this.quantity = quantity;
-        this.price = price;
-    }
-}
-
-
 
 // (() => {
 //     if(localStorage.products) {
@@ -43,7 +31,7 @@ const utils = {
 
     displayProduct: async function() {
         const product = await this.getProduct();
-        console.log(product);
+        // console.log(product);
         document.getElementById('teddy-card').innerHTML = 
         `
         <div class="col-8 card my-4 p-4 shadow-sm card-product m-auto">
@@ -74,15 +62,25 @@ const utils = {
     },
 
     saveCart: function() {
-
+        localStorage.products = JSON.stringify(cart);
+        // localStorage.setItem("cart", JSON.stringify(cart));
     },
 
-    addOneProductToCart: function() {
-        
-        const selectedTeddy = new SelectedProduct(product._id, product.name, product.color, procduct.quantity, product.price);
+    addOneProductToCart: async function() {
         // this.getCart();
-        // this.saveCart();
-        console.log(selectedTeddy);
+        
+        const product = await this.getProduct();
+
+        let teddySelected = {};
+        teddySelected.id = product._id;
+        teddySelected.name = product.name;
+        teddySelected.color = product.colors[0]; 
+        teddySelected.quantity = 1;
+        teddySelected.price = product.price;
+        
+        cart[teddySelected.id] = teddySelected;
+        this.saveCart();
+    
     },
 
     removeOneProductOfCart: function() {
