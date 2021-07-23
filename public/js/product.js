@@ -26,7 +26,7 @@ const utils = {
         <div class="col-8 card my-4 p-4 shadow-sm card-product m-auto">
             <img src=${product.imageUrl} alt=${product.description} class="card-img-top"/>           
             <div class="card-body">
-                <select id="select-color">Options</select>
+                <select id="select-color"></select>
                 <button id="btn-add" class="btn btn-primary">Ajouter au panier</button>
                 <p class="card-title">${product.name}</p>
                 <p class="card-text">${product.price} €</p>
@@ -81,7 +81,7 @@ const utils = {
     removeOneProductOfCart: function(product) {
         let cart = this.getCart();
         delete cart[product.id];
-        this.saveCart();
+        this.saveCart(cart);
     },
 };
 

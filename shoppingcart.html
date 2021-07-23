@@ -77,59 +77,60 @@
 		</footer>
 		<script>
 
-			let cart = JSON.parse(localStorage.getItem("cart"));
-			let containerEmpty = document.getElementById('empty');
-			let cartTable = document.querySelector('tbody');
-			let displayNone = document.getElementById('display-none');
+			// let cart = JSON.parse(localStorage.getItem("cart"));
+			// let containerEmpty = document.getElementById('empty');
+			// let cartTable = document.querySelector('tbody');
+			// let displayNone = document.getElementById('display-none');
 
-			// si localstorage vide, afficher panier vide
-			if (cart == null) {
-				displayNone.className = "d-none";
-				let empty = document.createElement('p');
-				empty.innerText = "Votre panier est vide";
-				containerEmpty.append(empty);
+			// // si localstorage vide, afficher panier vide
+			// if (cart == null) {
+			// 	displayNone.className = "d-none";
+			// 	let empty = document.createElement('p');
+			// 	empty.innerText = "Votre panier est vide";
+			// 	containerEmpty.append(empty);
 
-			// sinon, ajouter les teddies dans table
-			} else {
-				for (let i = 0; i < cart.length; i++) {
+			// // sinon, ajouter les teddies dans table
+			// } else {
+			// 	for (let i = 0; i < cart.length; i++) {
 
-					let tr = document.createElement('tr');
-					let tdName = document.createElement('td');
-					let tdColor = document.createElement('td');
-					let tdQuantity = document.createElement('td');
-					let btnMinus = document.createElement('button');
-					let btnAdd = document.createElement('button');
-					let tdPrice = document.createElement('td');
+			// 		let tr = document.createElement('tr');
+			// 		let tdName = document.createElement('td');
+			// 		let tdColor = document.createElement('td');
+			// 		let tdQuantity = document.createElement('td');
+			// 		let btnMinus = document.createElement('button');
+			// 		let btnAdd = document.createElement('button');
+			// 		let tdPrice = document.createElement('td');
 
-					tdName.innerText = cart[i].name;
-					tdColor.innerText = cart[i].color[0];
-					tdPrice.innerText = cart[i].price*cart[i].quantity+ " €";
-					tdQuantity.innerText = cart[i].quantity;
+			// 		tdName.innerText = cart[i].name;
+			// 		tdColor.innerText = cart[i].color[0];
+			// 		tdPrice.innerText = cart[i].price*cart[i].quantity+ " €";
+			// 		tdQuantity.innerText = cart[i].quantity;
 
-					tr.append(tdName);
-					tr.append(tdColor);
-					tr.append(tdQuantity);
-					tdQuantity.append(btnMinus);
-					tdQuantity.append(btnAdd);
-					tr.append(tdPrice);
-					cartTable.append(tr);
-				}
-				// Ajouter le prix de chaque teddy dans un tableau
-				let allPrices = [];
-				for (let i = 0; i < cart.length; i++) {
-					let priceCart = cart[i].price*cart[i].quantity;
-					allPrices.push(priceCart);
-					console.log(allPrices);
-				}
-				// aditionner les prix des teddies et l'afficher dans table
-				const reducer = (accumulator, currentValue) => accumulator + currentValue;
-				const totalPrice = allPrices.reduce(reducer, 0);
-				let total = document.getElementById('total-price');
-				total.innerText = totalPrice+ " €";
+			// 		tr.append(tdName);
+			// 		tr.append(tdColor);
+			// 		tr.append(tdQuantity);
+			// 		tdQuantity.append(btnMinus);
+			// 		tdQuantity.append(btnAdd);
+			// 		tr.append(tdPrice);
+			// 		cartTable.append(tr);
+			// 	}
+			// 	// Ajouter le prix de chaque teddy dans un tableau
+			// 	let allPrices = [];
+			// 	for (let i = 0; i < cart.length; i++) {
+			// 		let priceCart = cart[i].price*cart[i].quantity;
+			// 		allPrices.push(priceCart);
+			// 		console.log(allPrices);
+			// 	}
+			// 	// aditionner les prix des teddies et l'afficher dans table
+			// 	const reducer = (accumulator, currentValue) => accumulator + currentValue;
+			// 	const totalPrice = allPrices.reduce(reducer, 0);
+			// 	let total = document.getElementById('total-price');
+			// 	total.innerText = totalPrice+ " €";
 				
-			}
+			// }
 
 		</script>
+		<script src="/js/shoppingcart.js"></script>
 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
