@@ -8,7 +8,7 @@ async function displayCart(cart) {
    
     
     if (cart == null) {
-        console.log("dicplayCart!!");
+    
         displayNone.className = "d-none";
         let empty = document.createElement('p');
         empty.innerText = "Votre panier est vide";
@@ -18,7 +18,7 @@ async function displayCart(cart) {
     // sinon, ajouter les teddies dans table
     } else {
         for (let k in cart) {
-            console.log("dicplayCart!!");
+           
             let tr = document.createElement('tr');
             let tdName = document.createElement('td');
             let tdColor = document.createElement('td');
@@ -31,6 +31,12 @@ async function displayCart(cart) {
             tdColor.innerText = cart[k].color;
             tdPrice.innerText = cart[k].price*cart[k].quantity+ " €";
             tdQuantity.innerText = cart[k].quantity;
+            btnAdd.className = "add-quantity";
+            // let teddySelected =  cart[k];
+            // btnAdd.addEventListener("click", () => {
+            //     addOneProductToCart(teddySelected);
+            //     displayCart(cart);
+            // });
 
             tr.append(tdName);
             tr.append(tdColor);
@@ -42,8 +48,8 @@ async function displayCart(cart) {
         }
         // Ajouter le prix de chaque teddy dans un tableau
         let allPrices = [];
-        for (let i = 0; i < cart.length; i++) {
-            let priceCart = cart[i].price*cart[i].quantity;
+        for (let k in cart) {
+            let priceCart = cart[k].price*cart[k].quantity;
             allPrices.push(priceCart);
             console.log(allPrices);
         }
@@ -52,7 +58,11 @@ async function displayCart(cart) {
         const totalPrice = allPrices.reduce(reducer, 0);
         let total = document.getElementById('total-price');
         total.innerText = totalPrice+ " €";
+
+
     }
+    
+   
 };
 
 function getCart() {
@@ -67,24 +77,12 @@ function getCart() {
     localStorage.setItem("cart", JSON.stringify(cart));
 };
 
-function addOneProductToCart(product) {
+function addOneProductToCart(teddySelected) {
+    
     let cart = getCart();
-    if (cart[product._id] == null) {
-
-        let teddySelected = {};
-        teddySelected.id = product._id;
-        teddySelected.name = product.name;
-        teddySelected.color = product.colors[0]; 
-        teddySelected.quantity = 1;
-        teddySelected.price = product.price;
-        cart[teddySelected.id] = teddySelected;
-
-    } else {
-        cart[product._id].quantity++;    
-    }
-        
+    cart[teddySelected.id].quantity++;    
+    
     saveCart(cart);
-
 };
 
 function removeOneProductOfCart(product) {
@@ -96,6 +94,7 @@ function removeOneProductOfCart(product) {
 async function setPageCart() {
     let cart = await getCart();
     displayCart(cart);
+
 };
 
 setPageCart();
