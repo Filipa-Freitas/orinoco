@@ -6,7 +6,6 @@
 // // Fin Page Produit -----------------------------------------------
 
 
-
 const utils = {
 
     getProduct: async function(productId) {
