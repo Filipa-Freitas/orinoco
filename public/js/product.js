@@ -47,6 +47,7 @@ const utils = {
 
     getCart: function() {
        let cart = localStorage.getItem("cart");
+       console.log(cart);
        if (cart == null) {
            return {};
        }

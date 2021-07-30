@@ -1,23 +1,21 @@
- function displayCart(cart) {
+// const allPrices = [];
+function displayCart(cart) {
     
     const containerEmpty = document.getElementById('empty');
     const cartTable = document.querySelector('tbody');
     const displayNone = document.getElementById('display-none');
-    
-   
-    
     if (cart == null) {
     
         displayNone.className = "d-none";
         const empty = document.createElement('p');
         empty.innerText = "Votre panier est vide";
         containerEmpty.append(empty);
-        console.log(cart);
+        // console.log(cart);
         
     // sinon, ajouter les teddies dans table
     } else {
         // Ajouter le prix de chaque teddy dans un tableau
-        const allPrices = [];
+        // const allPrices = [];
 
         for (let k in cart) {
             
@@ -31,30 +29,39 @@
                     <input type="number" data-name="${cart[k].name}Price" id="${cart[k].id}" min="1" max="10" value="${cart[k].quantity}"></input>
                 </td>
                 <td id="${cart[k].name}Price">${cart[k].price * cart[k].quantity} €</td>
-                <td><button><i class="fas fa-trash"></i></button></td>
+                <td><button data-id="${cart[k].id}" class="delete-btn">supprimer</button></td>
             </tr>`;
-
-            const priceCart = cart[k].price * cart[k].quantity;
-            allPrices.push(priceCart);
+            
             // updatePrice(cart);
             // cartTable.append(tr);
         }
 
+        calculTotal(cart);
         // aditionner les prix des teddies et l'afficher dans table
-        const reducer = (accumulator, currentValue) => accumulator + currentValue;
-        const totalPrice = allPrices.reduce(reducer, 0);
-        const total = document.getElementById('total-price');
-        total.innerText = `${totalPrice} €`;
-        total.dataset.total = totalPrice;
+        
         
 
     }  
 };
 
+function calculTotal(cart) {
+    const allPrices = [];
+    for (let k in cart) {
+        const priceCart = cart[k].price * cart[k].quantity;
+        allPrices.push(priceCart);
+    }
+
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    const totalPrice = allPrices.reduce(reducer, 0);
+    const total = document.getElementById('total-price');
+    total.innerText = `${totalPrice} €`;
+    total.dataset.total = totalPrice;
+}
+
 function getCart() {
     const cart = localStorage.getItem("cart");
     if (cart == null) {
-        return cart;
+        return null;
     }
     return JSON.parse(cart);
  };
@@ -68,18 +75,22 @@ function addOneProductToCart(teddyId) {
     const cart = getCart();
     cart[teddyId].quantity++; 
     saveCart(cart);
+    calculTotal(cart);
 };
 
 function removeOneProductOfCart(teddyId) {
     const cart = getCart();
     cart[teddyId].quantity--;
     saveCart(cart);
+    calculTotal(cart);
 };
 
 function deleteProductOfCart(teddyId) {
     const cart = getCart();
     delete cart[teddyId];
-    saveCart();
+    // si cart est vide ou n'a pas de clé je supprime l'objet entier ou je renvoi null displayCart(cart)
+    // console.log('après remove', cart);
+    saveCart(cart);
 }
 
 function setPageCart() {
@@ -91,6 +102,7 @@ setPageCart();
 
 window.addEventListener("DOMContentLoaded", () => {
     // const allPrices = [];
+    // var teddyId = null;
 
     document.querySelectorAll('input[type="number"]').forEach((input) => {
         const teddyId = input.id;
@@ -100,22 +112,24 @@ window.addEventListener("DOMContentLoaded", () => {
             const cart = getCart();
             const currentQuantity = e.target.value;
             const total = document.getElementById('total-price');
+
             // let newTotal = 0;
             // si la quantité de l'input est > à quantité de cart on ajoute 
-            if(currentQuantity > cart[teddyId].quantity) {
-                addOneProductToCart(teddyId);
 
+                if(currentQuantity > cart[teddyId].quantity) {
+                    addOneProductToCart(teddyId);
+                }else {
+                    removeOneProductOfCart(teddyId);
+                    // newTotal = Number(total.dataset.total) - currentQuantity * cart[teddyId].price
+                    // console.log('-', newTotal)
+                }
+                
+                let newPrice = currentQuantity * cart[teddyId].price;
+                document.getElementById(dataName).innerText = newPrice + "€";
                 // newTotal = (currentQuantity * cart[teddyId].price) + Number(total.dataset.total);
                 // console.log('+', newTotal)
-            } else {
-                removeOneProductOfCart(teddyId);
-
-                // newTotal = Number(total.dataset.total) - currentQuantity * cart[teddyId].price
-                // console.log('-', newTotal)
-            }
             // on recalcule le prix par ligne
-            let newPrice = currentQuantity * cart[teddyId].price;
-            document.getElementById(dataName).innerText = newPrice + "€";
+            
             // total.innerHTML = newPrice + parseInt(total.dataset.total); 
             
             // console.log(document.getElementById(dataName).innerText);
@@ -124,9 +138,19 @@ window.addEventListener("DOMContentLoaded", () => {
             // total = document.getElementById('total-price');
             // total.innerText += document.getElementById(dataName).innerText;
         })
-        btnSupp = document.querySelectorAll('.fa-trash');
-        btnSupp.addEventListener("click", deleteProductOfCart(teddyId));
+
+        
     });
 
+    const btnSupp = document.querySelectorAll('.delete-btn');
+
+        btnSupp.forEach((btn) => {
+            const tr = btn.parentNode.parentNode;
+            btn.addEventListener("click", (e) => {
+                const id = e.target.dataset.id
+                deleteProductOfCart(id);
+                tr.remove();
+            });
+        });
     
 });
