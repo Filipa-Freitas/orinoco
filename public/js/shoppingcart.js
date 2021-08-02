@@ -3,10 +3,10 @@ function displayCart(cart) {
     
     const containerEmpty = document.getElementById('empty');
     const cartTable = document.querySelector('tbody');
-    const displayNone = document.getElementById('display-none');
-    if (cart == null) {
+    const view = document.getElementById('view');
+    if (cart == null || Object.keys(cart).length === 0) {
     
-        displayNone.className = "d-none";
+        view.className = "d-none";
         const empty = document.createElement('p');
         empty.innerText = "Votre panier est vide";
         containerEmpty.append(empty);
@@ -29,7 +29,7 @@ function displayCart(cart) {
                     <input type="number" data-name="${cart[k].name}Price" id="${cart[k].id}" min="1" max="10" value="${cart[k].quantity}"></input>
                 </td>
                 <td id="${cart[k].name}Price">${cart[k].price * cart[k].quantity} €</td>
-                <td><button data-id="${cart[k].id}" class="delete-btn">supprimer</button></td>
+                <td><button data-id="${cart[k].id}" class="delete-btn btn btn-dark">supprimer</button></td>
             </tr>`;
             
             // updatePrice(cart);
@@ -89,8 +89,11 @@ function deleteProductOfCart(teddyId) {
     const cart = getCart();
     delete cart[teddyId];
     // si cart est vide ou n'a pas de clé je supprime l'objet entier ou je renvoi null displayCart(cart)
-    // console.log('après remove', cart);
-    saveCart(cart);
+    calculTotal(cart);
+    saveCart(cart); 
+    if(Object.keys(cart).length === 0) {
+        displayCart(cart);
+    }
 }
 
 function setPageCart() {
@@ -109,34 +112,21 @@ window.addEventListener("DOMContentLoaded", () => {
         const dataName = input.dataset.name;
     
         input.addEventListener("input", (e) => {
+
             const cart = getCart();
             const currentQuantity = e.target.value;
             const total = document.getElementById('total-price');
 
-            // let newTotal = 0;
             // si la quantité de l'input est > à quantité de cart on ajoute 
 
                 if(currentQuantity > cart[teddyId].quantity) {
                     addOneProductToCart(teddyId);
                 }else {
                     removeOneProductOfCart(teddyId);
-                    // newTotal = Number(total.dataset.total) - currentQuantity * cart[teddyId].price
-                    // console.log('-', newTotal)
                 }
                 
                 let newPrice = currentQuantity * cart[teddyId].price;
                 document.getElementById(dataName).innerText = newPrice + "€";
-                // newTotal = (currentQuantity * cart[teddyId].price) + Number(total.dataset.total);
-                // console.log('+', newTotal)
-            // on recalcule le prix par ligne
-            
-            // total.innerHTML = newPrice + parseInt(total.dataset.total); 
-            
-            // console.log(document.getElementById(dataName).innerText);
-            // allPrices.push(currentQuantity * cart[teddyId].price);
-            // console.log(allPrices);
-            // total = document.getElementById('total-price');
-            // total.innerText += document.getElementById(dataName).innerText;
         })
 
         
@@ -144,13 +134,13 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const btnSupp = document.querySelectorAll('.delete-btn');
 
-        btnSupp.forEach((btn) => {
-            const tr = btn.parentNode.parentNode;
-            btn.addEventListener("click", (e) => {
-                const id = e.target.dataset.id
-                deleteProductOfCart(id);
-                tr.remove();
-            });
+    btnSupp.forEach((btn) => {
+        const tr = btn.parentNode.parentNode;
+        btn.addEventListener("click", (e) => {
+            const id = e.target.dataset.id
+            deleteProductOfCart(id);
+            tr.remove();
         });
+    });
     
 });

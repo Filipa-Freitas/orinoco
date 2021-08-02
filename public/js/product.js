@@ -47,7 +47,7 @@ const utils = {
 
     getCart: function() {
        let cart = localStorage.getItem("cart");
-       console.log(cart);
+       
        if (cart == null) {
            return {};
        }
@@ -60,18 +60,21 @@ const utils = {
 
     addOneProductToCart: function(product) {
         let cart = this.getCart();
+        let selectColor = document.querySelector("#select-color");
+        console.log(selectColor.value);   
         if (cart[product._id] == null) {
 
             let teddySelected = {};
             teddySelected.id = product._id;
             teddySelected.name = product.name;
-            teddySelected.color = product.colors[0]; 
+            teddySelected.color = selectColor.value; 
             teddySelected.quantity = 1;
             teddySelected.price = product.price;
             cart[teddySelected.id] = teddySelected;
-
+             
         } else {
-            cart[product._id].quantity++;    
+            cart[product._id].quantity++;
+            
         }
             
         this.saveCart(cart);
