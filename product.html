@@ -27,7 +27,7 @@
                                     <a href="/" class="nav-link">Accueil</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/order" class="nav-link">Panier</a>
+                                    <a href="/shoppingcart" class="nav-link">Panier</a>
                                 </li>
                             </ul>
                         </div>
@@ -53,138 +53,8 @@
               </div>
             </div>
         </footer>
-        <!-- <script>
-            // //
-            // // async function getProducts()
-            // // async function getProduct(productId)
-            // // function displayProduct(product)
 
-            // // function getCart() {
-            // //      localStorage.getItem("cart", JSON.parse(cart));
-            // // }
-
-            // // function saveCart(cart) {
-            // //     localStorage.setItem("cart", JSON.stringify(cart));
-            // // }
-
-            // // function addOneProductToCart(product) {
-            // //     getCart();
-            // //     add(product)
-            // //     saveCart();
-            // // }
-
-            // // function removeOneProductToCart(product) {
-            // //     getCart();
-            // //     remove(product)
-            // //     savecart()
-            // // }
-            
-
-            // let teddyCard = document.getElementById('teddy-card');
-
-            // let teddyId = window.location.href.split('/')[4].split('#')[0];
-            // // console.log(teddyId);
-
-            // // async function getProduct(productId)-------------------------------------
-            // async function getProductData() {
-            //     const response = await fetch('/api/teddies/'+ teddyId);
-            //     if(!response.ok) {
-            //         throw new Error(`Erreur HTTP ! statut : ${response.status}`);
-            //     }
-            //     return await response.json();
-            // }
-            // // async function getProduct(productId)-------------------------------------
-
-            // // function displayProduct(product)-----------------------------
-            // async function displayContent() {
-            //     const product = await getProductData();
-                
-            //     let card = document.createElement('div');
-            //     let img = document.createElement('img');
-            //     let select = document.createElement('select');
-            //     let cardBody = document.createElement('div');
-            //     let cardName = document.createElement('p');
-            //     let cardPrice = document.createElement('p');
-            //     let cardDescription = document.createElement('p');
-            //     let btn = document.createElement('button');
-
-            //     card.className = "col-8 card my-4 p-4 shadow-sm card-product m-auto";
-            //     img.className = "card-img-top";
-            //     cardBody.className = "card-body";
-            //     cardPrice.className = "card-text";
-            //     cardDescription.className = "card-text";
-            //     cardName.className = "card-title";
-            //     btn.id = "order-btn";
-            //     btn.className = "btn btn-primary";
-            //     btn.textContent = "Ajouter au panier";
-
-            //     img.src = product.imageUrl;
-            //     img.alt = product.description;
-            //     cardPrice.innerText = product.price+ " €";
-            //     cardName.innerText = product.name;
-            //     cardDescription.innerText = product.description;
-            
-            //     cardBody.append(select);
-            //     cardBody.append(btn);
-            //     cardBody.append(cardName);
-            //     cardBody.append(cardPrice);
-            //     cardBody.append(cardDescription);
-            //     card.append(img);
-            //     card.append(cardBody);
-            //     teddyCard.append(card);
-                
-            //     for(let i = 0; i < product.colors.length; i++) {
-            //         let option = document.createElement('option');
-            //         option.innerText = product.colors[i];
-            //         option.value = product.colors[i];
-            //         select.append(option);
-            //     }
-            // }
-            // // function displayProduct(product)-----------------------------
-            // displayContent();
-
-            // let btn = document.querySelector('#order-btn');
-
-            // btn.addEventListener('click', async function() {
-            //     const product = await getProductData();
-                
-            //     let cart = JSON.parse(localStorage.getItem("cart"));
-            //     let teddySelected = {};
-            //     teddySelected.id = product._id;
-            //     teddySelected.quantity = 1;
-            //     teddySelected.name = product.name;
-            //     teddySelected.price = product.price;
-            //     teddySelected.color = product.colors; 
-                
-
-            //     if (cart) {
-            //         let found = cart.find(function(element, index) {
-            //             if (element.id == product._id) {
-            //                 element.quantity += 1; 
-            //                 localStorage.setItem("cart", JSON.stringify(cart));
-            //                 console.log(element.quantity); 
-            //                 return true;
-            //             } else {
-            //                 return false;
-            //             }
-            //         });
-
-            //         if (!found) {
-            //             cart.push(teddySelected);
-            //             localStorage.setItem("cart", JSON.stringify(cart));
-            //             console.log('coucou');
-            //         }
-                   
-            //     } 
-            //     else {
-            //         cart = [];
-            //         cart.push(teddySelected);
-            //         localStorage.setItem("cart", JSON.stringify(cart));
-                    
-            //     }
-            // });
-
-        </script> -->
+        <script src="/js/utils.js"></script>
         <script src="/js/product.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

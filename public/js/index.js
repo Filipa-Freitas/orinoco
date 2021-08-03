@@ -1,15 +1,4 @@
-
-async function getProducts() {
-    const response = await fetch('/api/teddies/');
-        if(!response.ok) {
-            console.log("hello");
-            throw new Error(`Erreur HTTP ! statut : ${response.status}`);
-        }
-        return await response.json();
-    
- };
-
- function displayHome(products) {
+function displayHome(products) {
 
      let teddiesContainer = document.getElementById('teddies-container');
 
@@ -37,15 +26,12 @@ async function getProducts() {
         card.append(img);
         card.append(cardBody);
         teddiesContainer.append(card);
-
-
     }
- };
+ }
 
  async function setHome() {
-     getProducts();
      let products = await getProducts();
      displayHome(products);
- };
+ }
 
  setHome();

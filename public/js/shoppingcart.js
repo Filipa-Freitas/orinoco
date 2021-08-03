@@ -42,7 +42,7 @@ function displayCart(cart) {
         
 
     }  
-};
+}
 
 function calculTotal(cart) {
     const allPrices = [];
@@ -58,32 +58,19 @@ function calculTotal(cart) {
     total.dataset.total = totalPrice;
 }
 
-function getCart() {
-    const cart = localStorage.getItem("cart");
-    if (cart == null) {
-        return null;
-    }
-    return JSON.parse(cart);
- };
-
-function saveCart(cart) {
-    localStorage.setItem("cart", JSON.stringify(cart));
-};
-
-
-function addOneProductToCart(teddyId) {
+function addOnCartPage(teddyId) {
     const cart = getCart();
     cart[teddyId].quantity++; 
     saveCart(cart);
     calculTotal(cart);
-};
+}
 
-function removeOneProductOfCart(teddyId) {
+function removeOnCartPage(teddyId) {
     const cart = getCart();
     cart[teddyId].quantity--;
     saveCart(cart);
     calculTotal(cart);
-};
+}
 
 function deleteProductOfCart(teddyId) {
     const cart = getCart();
@@ -99,7 +86,7 @@ function deleteProductOfCart(teddyId) {
 function setPageCart() {
     const cart = getCart();
     displayCart(cart);
-};
+}
 
 setPageCart();
 
@@ -115,19 +102,19 @@ window.addEventListener("DOMContentLoaded", () => {
 
             const cart = getCart();
             const currentQuantity = e.target.value;
-            const total = document.getElementById('total-price');
+            // const total = document.getElementById('total-price');
 
             // si la quantité de l'input est > à quantité de cart on ajoute 
 
                 if(currentQuantity > cart[teddyId].quantity) {
-                    addOneProductToCart(teddyId);
-                }else {
-                    removeOneProductOfCart(teddyId);
+                    addOnCartPage(teddyId);
+                } else {
+                    removeOnCartPage(teddyId);
                 }
                 
                 let newPrice = currentQuantity * cart[teddyId].price;
                 document.getElementById(dataName).innerText = newPrice + "€";
-        })
+        });
 
         
     });
@@ -136,11 +123,18 @@ window.addEventListener("DOMContentLoaded", () => {
 
     btnSupp.forEach((btn) => {
         const tr = btn.parentNode.parentNode;
+
         btn.addEventListener("click", (e) => {
             const id = e.target.dataset.id
             deleteProductOfCart(id);
             tr.remove();
         });
+    });
+
+    const form = document.getElementById('orinocoForm');
+
+    form.addEventListener("submit", (e) => {
+        handleFormSubmit(e);
     });
     
 });

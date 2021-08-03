@@ -37,9 +37,13 @@ app.get('/product/:id', function(req,res) {
   // call one teddy with id
   res.sendFile(path.join(__dirname, 'product.html'));
 });
-app.get('/order', function(req,res) {
+app.get('/shoppingcart', function(req,res) {
   
   res.sendFile(path.join(__dirname, 'shoppingcart.html'));
+});
+app.get('/ordervalidation', function(req,res) {
+  
+  res.sendFile(path.join(__dirname, 'ordervalidation.html'));
 });
 
 module.exports = app;
