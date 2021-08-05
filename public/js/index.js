@@ -1,31 +1,20 @@
+// --------------- Injecte les données de l'API dans le DOM --------------- //
 function displayHome(products) {
 
      let teddiesContainer = document.getElementById('teddies-container');
 
     for(let i = 0; i < products.length; i++) {
-        let card = document.createElement('div');
-        let img = document.createElement('img');
-        let cardBody = document.createElement('div');
-        let cardPrice = document.createElement('p');
-        let cardName = document.createElement('a');
 
-        card.className = "col-md-6 col-lg-4 card p-2 shadow-sm";
-        img.className = "card-img-top";
-        cardBody.className = "card-body d-flex justify-content-between";
-        cardPrice.className = "card-title";
-        cardName.className = "stretched-link";
-
-        img.src = products[i].imageUrl;
-        img.alt = products[i].description;
-        cardPrice.innerText = products[i].price + " €";
-        cardName.innerText = products[i].name;
-        cardName.href = "/product/"+ products[i]._id
-
-        cardBody.append(cardName);
-        cardBody.append(cardPrice);
-        card.append(img);
-        card.append(cardBody);
-        teddiesContainer.append(card);
+        teddiesContainer.innerHTML += 
+        `<div class="col-md-6 col-lg-4 mb-4">
+            <div class="card p-2 shadow-sm">
+                <img class="img-thumbnail p-1" src="${products[i].imageUrl}" alt="${products[i].description}">
+                <div class="card-body d-flex justify-content-between">
+                    <a class="stretched-link" href="${"/product/" + products[i]._id}">${products[i].name}</a>
+                    <p class="card-title">${products[i].price + " €"}</p>
+                </div>
+            </div>
+        </div>`
     }
  }
 

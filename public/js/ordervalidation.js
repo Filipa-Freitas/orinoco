@@ -1,3 +1,4 @@
+// --------------- Récupère le localStorage --------------- //
 function getOrderValidation() {
     const orderValidation = localStorage.getItem("orderValidation");
     
@@ -7,6 +8,7 @@ function getOrderValidation() {
     return JSON.parse(orderValidation);
 }
 
+// --------------- Injecte les données du localStorage dans le DOM --------------- //
 function displayOrderValidation(orderValidation) {
     
     const textValidation = document.getElementById("textValidation");
@@ -17,6 +19,7 @@ function displayOrderValidation(orderValidation) {
 
 }
 
+// --------------- Gére le click pour retour à la page d'accueil --------------- //
 function backHome() {
     const btnBackHome = document.getElementById('backHome');
     btnBackHome.addEventListener("click", () => {

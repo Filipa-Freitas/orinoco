@@ -1,12 +1,6 @@
-
-// // Page Produit -----------------------------------------------
-// Je récupère les données du produit avec son Id et je l'injecte dans le DOM pour faire ma carte produit
-// au clic sur le bouton ajouter je stock les données du produit dont j'ai besoin dans un objet que j'enregistre dans le localStorage
-// si le produit est déjà dans le localStorage j'ajoute une quantité et j'enregistre l'objet dans le localStorage
-// // Fin Page Produit -----------------------------------------------
+// --------------- Injecte les données de l'api pour un teddy dans le DOM --------------- //
 function displayProduct(product) {
 
-    // console.log(product);
     document.getElementById('teddy-card').innerHTML = 
     `
     <div class="col-8 card my-4 p-4 shadow-sm card-product m-auto">
@@ -21,11 +15,10 @@ function displayProduct(product) {
     </div>
     `;
     
-    for(let i = 0; i < product.colors.length; i++) {            
-        let option = document.createElement('option');
-        option.innerText = product.colors[i];
-        option.value = product.colors[i];
-        document.getElementById("select-color").append(option);
+    for(let i = 0; i < product.colors.length; i++) { 
+
+        document.getElementById("select-color").innerHTML += 
+        `<option value="${product.colors[i]}">${product.colors[i]}</option>`;
     }
 
     document.getElementById("btn-add")

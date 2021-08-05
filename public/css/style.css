@@ -2,8 +2,19 @@
   background-color: #f3e9f1;
   width: 100%;
 }
-
-.card img {
+.img-thumbnail {
   height: 80%;
   width: 100%;
+}
+.card {
+  height: 100%;
+}
+
+input.error {
+  border: 1px solid red;
+}
+
+p.error {
+  color: red;
+  text-align: center;
 }

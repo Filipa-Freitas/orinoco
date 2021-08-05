@@ -1,4 +1,3 @@
-// const allPrices = [];
 function displayCart(cart) {
     
     const containerEmpty = document.getElementById('empty');
@@ -10,36 +9,25 @@ function displayCart(cart) {
         const empty = document.createElement('p');
         empty.innerText = "Votre panier est vide";
         containerEmpty.append(empty);
-        // console.log(cart);
-        
-    // sinon, ajouter les teddies dans table
+
     } else {
-        // Ajouter le prix de chaque teddy dans un tableau
-        // const allPrices = [];
 
         for (let k in cart) {
-            
-            // const tr = document.createElement('tr');
 
             cartTable.innerHTML +=
             `<tr>
                 <td>${cart[k].name}</td>
                 <td>${cart[k].color}</td>
                 <td>
-                    <input type="number" data-name="${cart[k].name}Price" id="${cart[k].id}" min="1" max="10" value="${cart[k].quantity}"></input>
+                    <input type="number" class="input-quantity" data-name="${cart[k].name}Price" id="${cart[k].id}" min="1" max="10" value="${cart[k].quantity}"></input>
                 </td>
                 <td id="${cart[k].name}Price">${cart[k].price * cart[k].quantity} €</td>
                 <td><button data-id="${cart[k].id}" class="delete-btn btn btn-dark">supprimer</button></td>
             </tr>`;
             
-            // updatePrice(cart);
-            // cartTable.append(tr);
         }
 
         calculTotal(cart);
-        // aditionner les prix des teddies et l'afficher dans table
-        
-        
 
     }  
 }
@@ -75,9 +63,10 @@ function removeOnCartPage(teddyId) {
 function deleteProductOfCart(teddyId) {
     const cart = getCart();
     delete cart[teddyId];
-    // si cart est vide ou n'a pas de clé je supprime l'objet entier ou je renvoi null displayCart(cart)
+
     calculTotal(cart);
     saveCart(cart); 
+
     if(Object.keys(cart).length === 0) {
         displayCart(cart);
     }
@@ -91,8 +80,6 @@ function setPageCart() {
 setPageCart();
 
 window.addEventListener("DOMContentLoaded", () => {
-    // const allPrices = [];
-    // var teddyId = null;
 
     document.querySelectorAll('input[type="number"]').forEach((input) => {
         const teddyId = input.id;
@@ -102,9 +89,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
             const cart = getCart();
             const currentQuantity = e.target.value;
-            // const total = document.getElementById('total-price');
-
-            // si la quantité de l'input est > à quantité de cart on ajoute 
 
                 if(currentQuantity > cart[teddyId].quantity) {
                     addOnCartPage(teddyId);
@@ -137,4 +121,12 @@ window.addEventListener("DOMContentLoaded", () => {
         handleFormSubmit(e);
     });
     
+    // for (let input of inputs) {
+    //     input.addEventListener('focus', (e) => {
+    //         if (input.className == "error") {
+    //             e.target.classList.remove('error');
+                
+    //         }// si class error enlever trouver element p avec class error et supprimer du dom
+    //     });
+    // }
 });
