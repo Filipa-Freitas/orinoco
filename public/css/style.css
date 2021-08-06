@@ -21,3 +21,8 @@ input.error {
   transform: translate(-50%, -50%);
   display: none;
 }
+
+small.error {
+  color: red;
+  margin: 5px 0;
+}

@@ -97,12 +97,13 @@ async function handleFormSubmit(e) {
     const showError = (input, message) => {
 
         const formField = input;
-        // ajoute message d'erreur
+        // ajoute classe d'erreur
         formField.classList.remove('success');
         formField.classList.add('error');
     
         // montre le message
         const error = formField.parentElement.querySelector('small');
+        // error.classList.add('error');
         error.textContent = message;
     };
 
@@ -121,6 +122,7 @@ async function handleFormSubmit(e) {
 
     // Valide valeur de l'input
     const checkFirstName = () => {
+        // accepte lettres maj min acc ++ un espace, - ++ lettres maj min acc || accepte lettres maj min acc
         const validName = /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+))$/;
 
         if(validName.test(firstName.value) !== true) {
@@ -133,6 +135,7 @@ async function handleFormSubmit(e) {
 
     // Valide valeur de l'input
     const checkLastName = () => {
+        // accepte lettres maj min acc ++ un espace, - ++ lettres maj min acc || accepte lettres maj min acc
         const validName = /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+))$/;
 
         if(validName.test(lastName.value) !== true) {
@@ -145,6 +148,7 @@ async function handleFormSubmit(e) {
 
     // Valide valeur de l'input
     const checkCity = () => {
+        // accepte lettres maj min acc ++ au moins un espace, - ++ lettres maj min acc || accepte lettres maj min acc
         const validCity = /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+)){1,10}$/;
 
         if(validCity.test(city.value) !== true) {
@@ -157,6 +161,7 @@ async function handleFormSubmit(e) {
 
     // Valide valeur de l'input
     const checkAddress = () => {
+        // accepte chiffres, lettres maj min acc ++ au moins un espace, - ++ chiffres, lettres maj min acc
         const validAddress = /^(([a-zA-ZÀ-ÿ0-9]+[\s\-]{1}[a-zA-ZÀ-ÿ0-9]+)){1,10}$/;
 
         if(validAddress.test(address.value) !== true) {
@@ -169,6 +174,7 @@ async function handleFormSubmit(e) {
 
     // Valide valeur de l'input
     const checkEmail = () => {
+        // accepte chiffres, lettres maj min, -_. ++ @ ++ au moins deux caractères : lettres maj min, chiffres, -_. ++ . ++ entre 2 et 4 lettres min
         const validMail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-z]{2,4}$/;
 
         if(validMail.test(email.value) !== true) {
@@ -179,9 +185,15 @@ async function handleFormSubmit(e) {
         }
     };
 
+    checkFirstName();
+    checkLastName();
+    checkAddress();
+    checkCity();
+    checkEmail();
+
     let products = [];
 
-    // Si formulaire valide, formate les données et les envoi
+    // Si formulaire valide, formate les données et les envoie
     if (checkFirstName() && checkLastName() && checkAddress() && checkCity() && checkEmail()) {
 
         for(let product in getCart()) {
