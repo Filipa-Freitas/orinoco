@@ -8,7 +8,7 @@ function getOrderValidation() {
     return JSON.parse(orderValidation);
 }
 
-// --------------- Injecte les données du localStorage dans le DOM --------------- //
+// --------------- Injecte les données du localStorage (orderValidation) dans le DOM --------------- //
 function displayOrderValidation(orderValidation) {
     
     const textValidation = document.getElementById("textValidation");
@@ -19,10 +19,23 @@ function displayOrderValidation(orderValidation) {
 
 }
 
-// --------------- Gére le click pour retour à la page d'accueil --------------- //
+// --------------- Gère le click pour retour à la page d'accueil --------------- //
 function backHome() {
     const btnBackHome = document.getElementById('backHome');
+    const linkHome = document.getElementById('linkHome');
+    const logoLinkHome = document.getElementById('logoLinkHome');
+
     btnBackHome.addEventListener("click", () => {
+        localStorage.clear();
+        window.location = '/';
+    });
+
+    linkHome.addEventListener("click", () => {
+        localStorage.clear();
+        window.location = '/';
+    });
+
+    logoLinkHome.addEventListener("click", () => {
         localStorage.clear();
         window.location = '/';
     });
