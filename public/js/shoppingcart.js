@@ -268,7 +268,7 @@ window.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    const form = document.getElementById('orinocoForm');
+    const form = document.getElementById('orinoco-form');
     // Gère l'envoi du formulaire
     form.addEventListener("submit", (e) => {
         handleFormSubmit(e);

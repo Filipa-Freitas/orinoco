@@ -55,9 +55,9 @@ function addOnProductPage(product) {
     saveCart(cart);
 
     // Affiche message succès ajout au panier
-    document.getElementById("addedProduct").style.display = "block"
+    document.getElementById("added-product").style.display = "block"
     setTimeout(function () {
-        document.getElementById("addedProduct").style.display = "none";
+        document.getElementById("added-product").style.display = "none";
     }, 800);
 }
 
