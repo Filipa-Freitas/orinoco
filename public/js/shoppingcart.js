@@ -84,117 +84,120 @@ function setPageCart() {
 
 setPageCart();
 
-// --------------- Valide et formate les données à envoyer et envoie sur la page confirmation de commande --------------- //
+// --------------- Montre un message d'erreur --------------- //
+const showError = (input, message) => {
+
+    const formField = input;
+    // ajoute classe d'erreur
+    formField.classList.remove('success');
+    formField.classList.add('error');
+
+    // montre le message
+    const error = formField.parentElement.querySelector('small');
+    error.classList.add('error');
+    error.textContent = message;
+};
+
+// --------------- Enlève le message d'erreur --------------- //
+const showSuccess = (input) => {
+
+    const formField = input;
+
+    // enlève la classe error
+    formField.classList.remove('error');
+    formField.classList.add('success');
+
+    // cache le message d'erreur
+    const error = formField.parentElement.querySelector('small');
+    error.textContent = '';
+};
+
+// --------------- Vérifie valeur de l'input --------------- //
+const checkFirstName = (input) => {
+    // (accepte lettres maj min acc && (un espace ou -) && lettres maj min acc) || accepte lettres maj min acc
+    const validName = /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+))$/;
+
+    if(validName.test(input.value) !== true) {
+        showError(input, 'Veuillez saisir votre prénom');
+    } else {
+        showSuccess(input);
+        return true;
+    }
+};
+
+// --------------- Vérifie valeur de l'input --------------- //
+const checkLastName = (input) => {
+    // accepte lettres maj min acc ++ un espace, - ++ lettres maj min acc || accepte lettres maj min acc
+    const validName = /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+))$/;
+
+    if(validName.test(input.value) !== true) {
+        showError(input, 'Veuillez saisir votre nom');
+    } else {
+        showSuccess(input);
+        return true;
+    }
+};
+
+// --------------- Vérifie valeur de l'input --------------- //
+const checkCity = (input) => {
+    // accepte lettres maj min acc ++ au moins un espace, - ++ lettres maj min acc || accepte lettres maj min acc
+    const validCity = /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+)){1,10}$/;
+
+    if(validCity.test(input.value) !== true) {
+        showError(input, 'Veuillez saisir votre ville')
+    } else {
+        showSuccess(input);
+        return true;
+    }
+};
+
+// --------------- Vérifie valeur de l'input --------------- //
+const checkAddress = (input) => {
+    // accepte chiffres, lettres maj min acc ++ au moins un espace, - ++ chiffres, lettres maj min acc
+    const validAddress = /^(([a-zA-ZÀ-ÿ0-9]+[\s\-]{1}[a-zA-ZÀ-ÿ0-9]+)){1,10}$/;
+
+    if(validAddress.test(input.value) !== true) {
+        showError(input, 'Veuillez saisir votre adresse');
+    } else {
+        showSuccess(input);
+        return true;
+    }
+};
+
+// Valide valeur de l'input
+const checkEmail = (input) => {
+    // accepte chiffres, lettres maj min, -_. ++ @ ++ au moins deux caractères : lettres maj min, chiffres, -_. ++ . ++ entre 2 et 4 lettres min
+    const validMail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-z]{2,4}$/;
+    
+    if(validMail.test(input.value) !== true) {
+        showError(input, 'Veuillez saisir votre adresse mail');
+    } else {
+        showSuccess(input);
+        return true;
+    }
+};
+
+// --------------- Formate et envoie les données si validées et envoie sur la page confirmation de commande --------------- //
 async function handleFormSubmit(e) {
     e.preventDefault();
 
-    const firstName = document.getElementById('first-name')
-    const lastName = document.getElementById('last-name')
-    const address = document.getElementById('address')
-    const city = document.getElementById('city')
-    const email = document.getElementById('email')
+    const firstNameInput = document.getElementById('first-name');
+    const lastNameInput = document.getElementById('last-name');
+    const addressInput = document.getElementById('address');
+    const cityInput = document.getElementById('city');
+    const emailInput = document.getElementById('email');
 
-    const showError = (input, message) => {
-
-        const formField = input;
-        // ajoute classe d'erreur
-        formField.classList.remove('success');
-        formField.classList.add('error');
-    
-        // montre le message
-        const error = formField.parentElement.querySelector('small');
-        // error.classList.add('error');
-        error.textContent = message;
-    };
-
-    const showSuccess = (input) => {
-
-        const formField = input;
-    
-        // enlève la classe error
-        formField.classList.remove('error');
-        formField.classList.add('success');
-    
-        // cache le message d'erreur
-        const error = formField.parentElement.querySelector('small');
-        error.textContent = '';
-    };
-
-    // Valide valeur de l'input
-    const checkFirstName = () => {
-        // accepte lettres maj min acc ++ un espace, - ++ lettres maj min acc || accepte lettres maj min acc
-        const validName = /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+))$/;
-
-        if(validName.test(firstName.value) !== true) {
-            showError(firstName, 'Veuillez saisir votre prénom')
-        } else {
-            showSuccess(firstName);
-            return true;
-        }
-    };
-
-    // Valide valeur de l'input
-    const checkLastName = () => {
-        // accepte lettres maj min acc ++ un espace, - ++ lettres maj min acc || accepte lettres maj min acc
-        const validName = /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+))$/;
-
-        if(validName.test(lastName.value) !== true) {
-            showError(lastName, 'Veuillez saisir votre nom')
-        } else {
-            showSuccess(lastName);
-            return true;
-        }
-    };
-
-    // Valide valeur de l'input
-    const checkCity = () => {
-        // accepte lettres maj min acc ++ au moins un espace, - ++ lettres maj min acc || accepte lettres maj min acc
-        const validCity = /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+)){1,10}$/;
-
-        if(validCity.test(city.value) !== true) {
-            showError(city, 'Veuillez saisir votre ville')
-        } else {
-            showSuccess(city);
-            return true;
-        }
-    };
-
-    // Valide valeur de l'input
-    const checkAddress = () => {
-        // accepte chiffres, lettres maj min acc ++ au moins un espace, - ++ chiffres, lettres maj min acc
-        const validAddress = /^(([a-zA-ZÀ-ÿ0-9]+[\s\-]{1}[a-zA-ZÀ-ÿ0-9]+)){1,10}$/;
-
-        if(validAddress.test(address.value) !== true) {
-            showError(address, 'Veuillez saisir votre adresse')
-        } else {
-            showSuccess(address);
-            return true;
-        }
-    };
-
-    // Valide valeur de l'input
-    const checkEmail = () => {
-        // accepte chiffres, lettres maj min, -_. ++ @ ++ au moins deux caractères : lettres maj min, chiffres, -_. ++ . ++ entre 2 et 4 lettres min
-        const validMail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-z]{2,4}$/;
-
-        if(validMail.test(email.value) !== true) {
-            showError(email, 'Veuillez saisir votre adresse mail')
-        } else {
-            showSuccess(email);
-            return true;
-        }
-    };
-
-    checkFirstName();
-    checkLastName();
-    checkAddress();
-    checkCity();
-    checkEmail();
+    checkFirstName(firstNameInput);
+    checkLastName(lastNameInput);
+    checkAddress(addressInput);
+    checkCity(cityInput);
+    checkEmail(emailInput);
 
     let products = [];
 
     // Si formulaire valide, formate les données et les envoie
-    if (checkFirstName() && checkLastName() && checkAddress() && checkCity() && checkEmail()) {
+    if (checkFirstName(firstNameInput) && checkLastName(lastNameInput)
+     && checkAddress(addressInput) && checkCity(cityInput) && checkEmail(emailInput)) {
 
         for(let product in getCart()) {
             products.push(product);
@@ -202,11 +205,11 @@ async function handleFormSubmit(e) {
     
         const contact = {
             contact : {
-                firstName: firstName.value,
-                lastName: lastName.value,
-                address: address.value,
-                city: city.value,
-                email: email.value
+                firstName: firstNameInput.value,
+                lastName: lastNameInput.value,
+                address: addressInput.value,
+                city: cityInput.value,
+                email: emailInput.value
             },
             products
         };
