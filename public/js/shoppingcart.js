@@ -127,7 +127,7 @@ const checkFirstName = (input) => {
 
 // --------------- Vérifie valeur de l'input --------------- //
 const checkLastName = (input) => {
-    // accepte lettres maj min acc ++ un espace, - ++ lettres maj min acc || accepte lettres maj min acc
+    // (accepte lettres maj min acc && (un espace ou -) && lettres maj min acc) || accepte lettres maj min acc
     const validName = /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+))$/;
 
     if(validName.test(input.value) !== true) {
@@ -141,7 +141,7 @@ const checkLastName = (input) => {
 // --------------- Vérifie valeur de l'input --------------- //
 const checkCity = (input) => {
     // accepte lettres maj min acc ++ au moins un espace, - ++ lettres maj min acc || accepte lettres maj min acc
-    const validCity = /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+)){1,10}$/;
+    const validCity = /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+)){1,5}$/;
 
     if(validCity.test(input.value) !== true) {
         showError(input, 'Veuillez saisir votre ville')
@@ -154,7 +154,7 @@ const checkCity = (input) => {
 // --------------- Vérifie valeur de l'input --------------- //
 const checkAddress = (input) => {
     // accepte chiffres, lettres maj min acc ++ au moins un espace, - ++ chiffres, lettres maj min acc
-    const validAddress = /^(([a-zA-ZÀ-ÿ0-9]+[\s\-]{1}[a-zA-ZÀ-ÿ0-9]+)){1,10}$/;
+    const validAddress = /^(([a-zA-ZÀ-ÿ0-9]+[\s\-]{1}[a-zA-ZÀ-ÿ0-9]+)){1,7}$/;
 
     if(validAddress.test(input.value) !== true) {
         showError(input, 'Veuillez saisir votre adresse');
