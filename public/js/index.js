@@ -3,7 +3,7 @@ function displayHome(products) {
 
      let teddiesContainer = document.getElementById('teddies-container');
 
-    for(let i = 0; i < products.length; i++) {
+    for (let i = 0; i < products.length; i++) {
 
         teddiesContainer.innerHTML += 
         `<div class="col-md-6 col-lg-4 mb-4">
@@ -18,9 +18,9 @@ function displayHome(products) {
     }
  }
 
- async function setHome() {
+async function setHome() {
      let products = await getProducts();
      displayHome(products);
- }
+}
 
- setHome();
+setHome();

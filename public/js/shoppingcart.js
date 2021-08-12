@@ -72,7 +72,7 @@ function deleteProductOfCart(teddyId) {
     calculTotal(cart);
     saveCart(cart); 
 
-    if(Object.keys(cart).length === 0) {
+    if (Object.keys(cart).length === 0) {
         displayCart(cart);
     }
 }
@@ -96,7 +96,7 @@ const showError = (input, message) => {
     const error = formField.parentElement.querySelector('small');
     error.classList.add('error');
     error.textContent = message;
-};
+}
 
 // --------------- Enlève le message d'erreur --------------- //
 const showSuccess = (input) => {
@@ -110,72 +110,72 @@ const showSuccess = (input) => {
     // cache le message d'erreur
     const error = formField.parentElement.querySelector('small');
     error.textContent = '';
-};
+}
 
 // --------------- Vérifie valeur de l'input --------------- //
 const checkFirstName = (input) => {
     // (accepte lettres maj min acc && (un espace ou -) && lettres maj min acc) || accepte lettres maj min acc
     const validName = /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+))$/;
 
-    if(validName.test(input.value) !== true) {
+    if (validName.test(input.value) !== true) {
         showError(input, 'Veuillez saisir votre prénom');
     } else {
         showSuccess(input);
         return true;
     }
-};
+}
 
 // --------------- Vérifie valeur de l'input --------------- //
 const checkLastName = (input) => {
     // (accepte lettres maj min acc && (un espace ou -) && lettres maj min acc) || accepte lettres maj min acc
     const validName = /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+))$/;
 
-    if(validName.test(input.value) !== true) {
+    if (validName.test(input.value) !== true) {
         showError(input, 'Veuillez saisir votre nom');
     } else {
         showSuccess(input);
         return true;
     }
-};
+}
 
 // --------------- Vérifie valeur de l'input --------------- //
 const checkCity = (input) => {
     // accepte lettres maj min acc ++ au moins un espace, - ++ lettres maj min acc || accepte lettres maj min acc
     const validCity = /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+)){1,5}$/;
 
-    if(validCity.test(input.value) !== true) {
+    if (validCity.test(input.value) !== true) {
         showError(input, 'Veuillez saisir votre ville')
     } else {
         showSuccess(input);
         return true;
     }
-};
+}
 
 // --------------- Vérifie valeur de l'input --------------- //
 const checkAddress = (input) => {
     // accepte chiffres, lettres maj min acc ++ au moins un espace, - ++ chiffres, lettres maj min acc
     const validAddress = /^(([a-zA-ZÀ-ÿ0-9]+[\s\-]{1}[a-zA-ZÀ-ÿ0-9]+)){1,7}$/;
 
-    if(validAddress.test(input.value) !== true) {
+    if (validAddress.test(input.value) !== true) {
         showError(input, 'Veuillez saisir votre adresse');
     } else {
         showSuccess(input);
         return true;
     }
-};
+}
 
 // Valide valeur de l'input
 const checkEmail = (input) => {
     // accepte chiffres, lettres maj min, -_. ++ @ ++ au moins deux caractères : lettres maj min, chiffres, -_. ++ . ++ entre 2 et 4 lettres min
     const validMail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-z]{2,4}$/;
     
-    if(validMail.test(input.value) !== true) {
+    if (validMail.test(input.value) !== true) {
         showError(input, 'Veuillez saisir votre adresse mail');
     } else {
         showSuccess(input);
         return true;
     }
-};
+}
 
 // --------------- Formate et envoie les données si validées et envoie sur la page confirmation de commande --------------- //
 async function handleFormSubmit(e) {
@@ -199,7 +199,7 @@ async function handleFormSubmit(e) {
     if (checkFirstName(firstNameInput) && checkLastName(lastNameInput)
      && checkAddress(addressInput) && checkCity(cityInput) && checkEmail(emailInput)) {
 
-        for(let product in getCart()) {
+        for (let product in getCart()) {
             products.push(product);
         }
     
@@ -246,7 +246,7 @@ window.addEventListener("DOMContentLoaded", () => {
             const cart = getCart();
             const currentQuantity = e.target.value;
 
-                if(currentQuantity > cart[teddyId].quantity) {
+                if (currentQuantity > cart[teddyId].quantity) {
                     addOnCartPage(teddyId);
                 } else {
                     removeOnCartPage(teddyId);

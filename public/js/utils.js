@@ -2,7 +2,7 @@
 async function getProducts() {
     const response = await fetch('/api/teddies/');
 
-    if(!response.ok) {
+    if (!response.ok) {
         throw new Error(`Erreur HTTP ! statut : ${response.status}`);
     }
     return await response.json();
@@ -12,7 +12,7 @@ async function getProducts() {
 async function getProduct(productId) {
     const response = await fetch('/api/teddies/'+ productId);
 
-    if(!response.ok) {
+    if (!response.ok) {
         throw new Error(`Erreur HTTP ! statut : ${response.status}`);
     }
     return await response.json();
@@ -72,7 +72,7 @@ async function sendFormData(url, data) {
         body: JSON.stringify(data)
     });
 
-    if(!response.ok) {
+    if (!response.ok) {
         const errorMessage = await response.text();
         throw new Error(errorMessage);
     }
