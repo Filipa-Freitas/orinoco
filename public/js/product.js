@@ -25,10 +25,16 @@ function displayProduct(product) {
     .addEventListener("click", () => addOnProductPage(product));
 }
 
+// Injecte un message d'erreur
+
+
 async function setPage() {
     const productId = window.location.href.split('/')[4].split('#')[0];
-    const product = await getProduct(productId);
-    displayProduct(product);
+    if (productId.length === 24) {
+        const product = await getProduct(productId);
+        return displayProduct(product);
+    }
+    return window.location.href = '/error';
 }
 
 setPage();

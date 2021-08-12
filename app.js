@@ -33,6 +33,7 @@ app.get('/', function(req,res) {
   //call all teddies
   res.sendFile(path.join(__dirname, 'index.html'));
 });
+
 app.get('/product/:id', function(req,res) {
   // call one teddy with id
   res.sendFile(path.join(__dirname, 'product.html'));
@@ -44,6 +45,9 @@ app.get('/shoppingcart', function(req,res) {
 app.get('/ordervalidation', function(req,res) {
   
   res.sendFile(path.join(__dirname, 'ordervalidation.html'));
+});
+app.get('*', function(req, res){
+  res.sendFile(path.join(__dirname, '404.html'));
 });
 
 module.exports = app;
