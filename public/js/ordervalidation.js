@@ -22,27 +22,15 @@ function displayOrderValidation(orderValidation) {
 // --------------- Gère le click pour retour à la page d'accueil --------------- //
 function backHome() {
     const btnBackHome = document.getElementById('backHome');
-    const linkHome = document.getElementById('linkHome');
-    const logoLinkHome = document.getElementById('logoLinkHome');
 
     btnBackHome.addEventListener("click", () => {
-        localStorage.clear();
-        window.location = '/';
-    });
-
-    linkHome.addEventListener("click", () => {
-        localStorage.clear();
-        window.location = '/';
-    });
-
-    logoLinkHome.addEventListener("click", () => {
-        localStorage.clear();
         window.location = '/';
     });
 }
 
 function setOrderValidation() {
     const orderValidation = getOrderValidation();
+    localStorage.clear();
     displayOrderValidation(orderValidation);
     backHome();
 }
