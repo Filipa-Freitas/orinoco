@@ -25,9 +25,9 @@ function displayProduct(product) {
     .addEventListener("click", () => addOnProductPage(product));
 }
 
-// Injecte un message d'erreur
 
 
+// --------------- Récupère l'Id dans l'Url de la page test l'Id et affiche le produit --------------- //
 async function setPage() {
     const productId = window.location.href.split('/')[4].split('#')[0];
     if (productId.length === 24) {
