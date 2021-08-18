@@ -166,7 +166,7 @@ const checkAddress = (input) => {
 
 // Valide valeur de l'input
 const checkEmail = (input) => {
-    // accepte chiffres, lettres maj min, -_. ++ @ ++ au moins deux caractères : lettres maj min, chiffres, -_. ++ . ++ entre 2 et 4 lettres min
+    // accepte chiffres, lettres maj min, -, _, . && @ && au moins deux caractères : lettres maj min, chiffres, -, _, . && . && entre 2 et 4 lettres min
     const validMail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-z]{2,4}$/;
     
     if (validMail.test(input.value) !== true) {
